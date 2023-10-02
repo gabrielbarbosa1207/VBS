@@ -1,86 +1,98 @@
-import React,{ useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getOdds } from "../../services/odds/odds";
 import styled from "styled-components";
-import OddsDate from "../OddsDate";
+import TournnamentsDate from "../TournamentsDate";
 
+const Container = styled.div`
+    max-width: 850px;
+    margin: 20px auto;
+    background-color: gray;
+    border-radius: 5px;
+    padding: 15px;
+`;
 
 const EventContainer = styled.div`
-    background-color:#262626;
-    padding: 5px 10px;
-    text-align:left;
-    margin: 2px 0px;
-    max-width:630px;
-    @media screen and (min-width:550px){
-        margin: 2px auto;
+    background-color: #262626;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+`;
+
+const EventTitle = styled.h2`
+    font-size: 16px;
+    color: white;
+    margin: 0;
+`;
+
+const MatchList = styled.div`
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #383838;
+`;
+
+const Match = styled.p`
+    font-size: 14px;
+    color: #bdbdbd;
+    margin: 0;   // Reset default margin
+    padding: 5px;
+    width: 300px;
+    line-height: 1.5;   // Ensure a consistent line height
+
+    &:hover {
+        background-color: #333;
     }
-`
 
-const Event = styled.h2`
-    font-size:12px
-`
-
-const MatchType = styled.p`
-    margin: 2px 0px;
-    font-size:11px
-`
+    @media screen and (max-width:780px){
+        width:150px;
+    }
+`;
 
 const LogoDiv = styled.div`
-    display: flex; // To center the inner image
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;  // Setting both width and height
-    height: 40px; // ensures a square, which is essential for a perfect circle
-    padding: 5px;
+    width: 30px;
+    height: 30px;
+    padding: 0;  // Remove any padding
     background-color: #3b3b3c;
-    border-radius: 50%; // This ensures a perfect circle
+    border-radius: 50%;
+    line-height: 1.5;   // Ensure a consistent line height
 `;
+
+
+const Div = styled.div`
+    border-bottom: 1px solid #383838;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+`;
+
+const Comp = styled.div`
+    display: flex;
+    gap: 15px;
+    align-items:center;
+`;
+
+// const LogoDiv = styled.div`
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     width: 30px;
+//     height: 30px;
+//     padding: 5px;
+//     background-color: #3b3b3c;
+//     border-radius: 50%;
+// `;
 
 const Logo = styled.img`
-    width: 28px; // Or maybe 100% if you want it to fill its parent
-    height: 28px;
-    object-fit: cover; // Ensures the image isn't stretched or compressed
-    border-radius: 50%; // Optional, if you want the image itself to be circular
+    width: 18px;
+    height: 18px;
+    object-fit: cover;
+    border-radius: 50%;
 `;
-
-
-const CompetitorContainer = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 50px;
-
-    @media screen and (min-width:750px){
-      gap:100px
-    }
-
-`;
-
-const Competitor = styled.div`
-    display: flex;
-    flex-direction: column;  
-    align-items: center;  
-    text-align: center;
-    width: 100px;  // Assign a consistent width
-`;
-
-const CompName = styled.p`
-    font-size:12px;
-    max-width:85px;
-    
-`
-
-const OddsContainer = styled.div`
-    background-color: #262626;
-    margin-bottom: 8px;
-    padding: 8px 16px 16px 16px;
-    box-sizing: border-box;
-    max-width:650px;
-    @media screen and (min-width:550px){
-        margin: 5px auto;
-    }
-`
-
 
 function All() {
     const [events, setEvents] = useState([]);
@@ -100,43 +112,29 @@ function All() {
     }
 
     return (
-        <div>
+        <Container>
             {error && <p>{error}</p>}
-            {events.map(event => (
-                <div>
-                    <EventContainer>
-                        <Event>{event.Name}</Event>
-                    </EventContainer>
-                    {event.Matches.map(match => (
-                        <div>
-                            <OddsContainer>
-                                <MatchType>{ match.MatchType }</MatchType>
-                                <CompetitorContainer>
-                                {match.Competitors.map((comp, index) => (
-                                    <React.Fragment key={comp.ID}>
-                                        <Competitor>
-                                            <LogoDiv>
-                                                <Logo src={`https://${comp.Logo}`} alt={comp.Name} />
-                                            </LogoDiv>
-                                            <CompName>{comp.Name}</CompName>
-                                        </Competitor>
-
-                                        {/* Insert the date at the midpoint */}
-                                        {index === Math.floor(match.Competitors.length / 2) - 1 && (
-                                            <div>
-                                               <OddsDate timestamp={ match.StartDate}></OddsDate>
-                                            </div>
-                                        )}
-                                    </React.Fragment>
-                                ))}
-                                </CompetitorContainer>
-
-                            </OddsContainer>
-                        </div>
-                    ))}
-                </div>
+            {events.map((event, eventId) => (
+                <EventContainer key={eventId}>
+                    <EventTitle>{event.Name}</EventTitle>
+                    <MatchList>
+                        {event.Matches.map((match, matchId) => (
+                            <Div key={matchId}>
+                                <Comp>
+                                    <Match>{match.Name} -  </Match>
+                                    { match.Competitors.map(comp => (
+                                        <LogoDiv key={comp.ID}>
+                                            <Logo src={`http://${comp.Logo}`} alt={comp.Name} />
+                                        </LogoDiv>
+                                    ))}
+                                </Comp>
+                                <TournnamentsDate timestamp={match.StartDate} />
+                            </Div>
+                        ))}
+                    </MatchList>
+                </EventContainer>
             ))}
-        </div>
+        </Container>
     );
 }
 

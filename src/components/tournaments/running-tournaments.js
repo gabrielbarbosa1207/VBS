@@ -76,16 +76,6 @@ const Comp = styled.div`
     align-items:center;
 `;
 
-// const LogoDiv = styled.div`
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     width: 30px;
-//     height: 30px;
-//     padding: 5px;
-//     background-color: #3b3b3c;
-//     border-radius: 50%;
-// `;
 
 const Logo = styled.img`
     width: 18px;
@@ -94,7 +84,7 @@ const Logo = styled.img`
     border-radius: 50%;
 `;
 
-function Coming() {
+function Live() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
 
@@ -116,7 +106,7 @@ function Coming() {
             {error && <p>{error}</p>}
             {events.map((event, eventId) => {
                 
-                const preMatchGames = event.Matches.filter(match => match.MatchType === "PreMatch");
+                const preMatchGames = event.Matches.filter(match => match.MatchType === "Live");
 
                 if(preMatchGames.length === 0) return null;
 
@@ -145,4 +135,4 @@ function Coming() {
     );
 }
 
-export default Coming;
+export default Live;

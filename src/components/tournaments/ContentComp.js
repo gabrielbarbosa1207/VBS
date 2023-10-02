@@ -94,7 +94,7 @@ return(
 
     <H2>Game Changers: Women's VALORANT Circuit</H2>
 
-    <P>The <a href="https://twitter.com/WomensVCT">Women's VALORANT Circuit</a> , also known as VCT Game Changers, is an exclusive tournament series dedicated to enhancing opportunities and visibility for female participants in the realm of VALORANT esports. Designed with the core intention of fostering gender diversity and inclusivity within the competitive gaming scene, this circuit aims to level the playing field for women and create a more balanced and diverse landscape in esports.</P>
+    <P>The <a href="https://twitter.com/WomensVCT">Twitch</a> , also known as VCT Game Changers, is an exclusive tournament series dedicated to enhancing opportunities and visibility for female participants in the realm of VALORANT esports. Designed with the core intention of fostering gender diversity and inclusivity within the competitive gaming scene, this circuit aims to level the playing field for women and create a more balanced and diverse landscape in esports.</P>
 
     <P>The Women’s VALORANT Circuit is a series of tournaments and events held throughout the year. This initiative not only provides more opportunities for female players to compete and gain recognition in the esports realm but also serves as an inspiration for a new generation of female gamers looking to leave their mark on the world of VALORANT esports.</P>
 

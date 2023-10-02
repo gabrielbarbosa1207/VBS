@@ -77,7 +77,6 @@ const OddsContainer = styled.div`
         margin: 5px auto;
     }
 `
-
 const ButtonContainer = styled.div`
     display:flex;
     gap:150px;
@@ -99,7 +98,8 @@ const Button = styled.button`
 
 
 
-function Live() {
+
+function Matches() {
     const [events, setEvents] = useState([]);
     const [error, setError] = useState(null);
 
@@ -123,58 +123,49 @@ function Live() {
     return (
         <div>
             {error && <p>{error}</p>}
-            {events.map(event => {
-                const preMatchGames = event.Matches.filter(match => match.MatchType === "Live")
+            {events.map(event => (
+                <div>
+                    {/* <CtaLink /> */}
+                    <EventContainer>
+                        <Event>{event.Name}</Event>
+                    </EventContainer>
+                    {event.Matches.map(match => (
+                        <div>
+                            <OddsContainer>
+                                <p>{ match.MatchType }</p>
+                                <CompetitorContainer>
+                                {match.Competitors.map((comp, index) => (
+                                    <React.Fragment key={comp.ID}>
+                                        <Competitor>
+                                            <LogoDiv>
+                                                <Logo src={`https://${comp.Logo}`} alt={comp.Name} />
+                                            </LogoDiv>
+                                            <CompName>{comp.Name}</CompName>
+                                        </Competitor>
 
-                if(preMatchGames.length === 0 ){
-                    return null
-                }
-                
-
-                return (
-                    <div key={event.EventID}>
-                        {/* <CtaLink /> */}
-                        <EventContainer>
-                            <Event>{event.Name}</Event>
-                        </EventContainer>
-                        {preMatchGames.map(match => (
-                            <div key={match.MatchID}>
-                                <OddsContainer>
-                                    <p>{ match.MatchType }</p>
-                                    <CompetitorContainer>
-                                    {match.Competitors.map((comp, index) => (
-                                        <React.Fragment key={comp.ID}>
-                                            <Competitor>
-                                                <LogoDiv>
-                                                    <Logo src={`https://${comp.Logo}`} alt={comp.Name} />
-                                                </LogoDiv>
-                                                <CompName>{comp.Name}</CompName>
-                                            </Competitor>
-
-                                            {/* Insert the date at the midpoint */}
-                                            {index === Math.floor(match.Competitors.length / 2) - 1 && (
-                                                <div>
-                                                   <OddsDate timestamp={ match.StartDate}></OddsDate>
-                                                </div>
-                                            )}
-                                        </React.Fragment>
-                                    ))}
-                                    </CompetitorContainer>
-                                    <Button onClick={handleButtonClick}>
-                                        <ButtonContainer>
-                                            { match.Competitors.map(comp =>(
-                                                <p>{comp.Name}</p>
-                                            )) }
-                                        </ButtonContainer>
-                                    </Button>
-                                </OddsContainer>
-                            </div>
-                        ))}
-                    </div>
-                );
-            })}
+                                        {/* Insert the date at the midpoint */}
+                                        {index === Math.floor(match.Competitors.length / 2) - 1 && (
+                                            <div>
+                                               <OddsDate timestamp={ match.StartDate}></OddsDate>
+                                            </div>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+                                </CompetitorContainer>
+                                <Button onClick={handleButtonClick}>
+                                    <ButtonContainer>
+                                        {match.Competitors.map(comp => (
+                                            <p>{comp.Name}</p>
+                                        ))}
+                                    </ButtonContainer>
+                                </Button>
+                            </OddsContainer>
+                        </div>
+                    ))}
+                </div>
+            ))}
         </div>
     );
 }
 
-export default Live;
+export default Matches;

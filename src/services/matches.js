@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const matchesAPI = axios.create({baseURL:"http://localhost:8000/matches"})
+const matchesAPI = axios.create({baseURL:"https://odds.data.bet/affiliates/ItOPmBM7HLd-NQngUmT6Cw/json"})
 
 async function getMatches(){
     const response = await matchesAPI.get("/")

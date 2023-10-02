@@ -4,11 +4,13 @@ import { createGlobalStyle } from "styled-components"
 import styled from "styled-components";
 import Coming from "../components/odds/Upcoming-odds";
 import Live from "../components/odds/Running-odds";
+import { Helmet } from "react-helmet";
+// import CtaLink from "../components/Cta";
 
 const GlobalStyle = createGlobalStyle`
   html,body{
     margin: 0px;
-    padding: 0px;
+    padding: 20px 8px 40px 8px;
     background-color:#1c1c1c;
     color:white;
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -54,9 +56,6 @@ function OddsRoute() {
   return(
     <div>
       <GlobalStyle />
-      <Title>
-        VALORANT Real-Time Betting Odds
-      </Title>
       <Tabs>
         <TabItem onClick={() => setActiveTab('all')}>All</TabItem>
         <TabItem onClick={() => setActiveTab('live')}>Running</TabItem>
@@ -65,6 +64,7 @@ function OddsRoute() {
       {activeTab === 'all' && <Odds/> }
       {activeTab === 'coming' && <Coming/> }
       {activeTab === 'live' && <Live/> }
+      {/* <CtaLink /> */}
     </div>
   );
 }

@@ -5,12 +5,30 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Tournaments from './routes/tournaments.js';
 import Odds from './routes/Odds.js';
 import MatchesRoute from './routes/matches.js';
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+/* Thin scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+    width: 5px;  /* for vertical scrollbars */
+    height: 5px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* Change to any color; this is the thumb of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Change color when hovering over the scrollbar thumb */
+}
+`
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <GlobalStyle />
+    <BrowserRouter basename="/react-app">
       <Routes>
         <Route path='/matches' element={ <MatchesRoute /> }/>
         <Route path='/tournaments' element={ <Tournaments /> }/>

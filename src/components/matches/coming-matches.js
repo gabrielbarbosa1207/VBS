@@ -2,21 +2,26 @@ import React,{ useState, useEffect } from "react";
 import { getOdds } from "../../services/odds/odds";
 import styled from "styled-components";
 import OddsDate from "../OddsDate";
+// import CtaLink from "../Cta";
 
+const Cont = styled.div`
+    position:relative;
+`
 
 const EventContainer = styled.div`
     background-color:#262626;
-    padding: 5px 10px;
+    padding: 5px 0px;
     text-align:left;
-    margin: 2px 8px;
-    max-width:730px;
+    margin: 2px 0px;
+    max-width:850px;
     @media screen and (min-width:550px){
         margin: 2px auto;
     }
 `
 
 const Event = styled.h2`
-    font-size:12px
+    font-size:12px;
+    margin:10px;
 `
 
 const LogoDiv = styled.div`
@@ -67,14 +72,34 @@ const CompName = styled.p`
 
 const OddsContainer = styled.div`
     background-color: #262626;
-    margin:0px 8px 8px 8px;
     padding: 8px 16px 16px 16px;
     box-sizing: border-box;
-    max-width:750px;
+    max-width:850px;
     @media screen and (min-width:750px){
-        margin: 5px auto;
+        margin:5px auto;
     }
 `
+
+const ButtonContainer = styled.div`
+    display:flex;
+    gap:150px;
+    justify-content:center;
+    color:gray;
+    width:100%;
+    background-color:white;
+    cursor:pointer; 
+
+    @media screen and (max-width:750px){
+        gap:100px;
+    }
+`
+
+const Button = styled.button`
+    width:100%;
+    margin-top:15px;
+`
+
+
 
 
 function Coming() {
@@ -94,6 +119,10 @@ function Coming() {
         }
     }
 
+    const handleButtonClick = () => {
+        window.open('https://valorantbettingsites.com/go/ggbet', '_blank').focus();
+      };
+
     return (
         <div>
             {error && <p>{error}</p>}
@@ -106,7 +135,8 @@ function Coming() {
                 
 
                 return (
-                    <div key={event.EventID}>
+                    <Cont key={event.EventID}>
+                        {/* <CtaLink /> */}
                         <EventContainer>
                             <Event>{event.Name}</Event>
                         </EventContainer>
@@ -133,10 +163,17 @@ function Coming() {
                                         </React.Fragment>
                                     ))}
                                     </CompetitorContainer>
+                                    <Button onClick={handleButtonClick}>
+                                        <ButtonContainer>
+                                            { match.Competitors.map(comp =>(
+                                                <p>{comp.Name}</p>
+                                            )) }
+                                        </ButtonContainer>
+                                    </Button>
                                 </OddsContainer>
                             </div>
                         ))}
-                    </div>
+                    </Cont>
                 );
             })}
         </div>

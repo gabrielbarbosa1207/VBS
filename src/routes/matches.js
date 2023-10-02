@@ -1,15 +1,13 @@
-import { useState } from "react";
-import Odds from "../components/odds/Odds";
 import { createGlobalStyle } from "styled-components"
 import styled from "styled-components";
-import Coming from "../components/matches/coming-matches";
-import Live from "../components/matches/running-matches";
 import Content from "../components/matches/ContentComp";
+import { Helmet } from 'react-helmet';
+// import CtaLink from "../components/Cta";
 
 const GlobalStyle = createGlobalStyle`
   html,body{
     margin: 0px;
-    padding: 0px;
+    padding: 20px 8px 40px 8px;
     background-color:#1c1c1c;
     color:white;
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
@@ -27,48 +25,23 @@ const Title = styled.h1`
   color: #FF5522;
 ` // Removed the stray backslash
 
-const Tabs = styled.ul`
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    margin: 20px 0;
-    list-style-type: none;
-`;
-
-const TabItem = styled.li`
-    margin: 0 10px;
-    cursor: pointer;
-    padding: 10px 20px;
-    border-radius: 8px;
-    background-color:  ${(props) => (props.isActive ? 'gray' : '#3c3c3c')};
-    transition: background-color 0.2s ease;
-
-
-    &:hover {
-        background-color: #3c3c3c;
-    }
-`;
-
 
 function MatchesRoute() {
-  const [activeTab, setActiveTab] = useState('all')
 
   return(
     <div>
       <GlobalStyle />
+      <Helmet>
+        <title>Valorant Tournaments: Schedule - Leagues - VCT Events</title>
+        <meta name="description" content="View all past Valorant esports tournaments and those being played today. Follow the VCT Pro League and keep track of all dates for the next events on our page." />
+        </Helmet>
       <Title>
-        VALORANT MATCHES
+        VALORANT REAL-TIME MATCHES
       </Title>
-      <Tabs>
-        <TabItem onClick={() => setActiveTab('all')}>All</TabItem>
-        <TabItem onClick={() => setActiveTab('live')}>Running</TabItem>
-        <TabItem onClick={() => setActiveTab('coming')}>Coming</TabItem>
-      </Tabs>
-      {activeTab === 'all' && <Odds/> }
-      {activeTab === 'coming' && <Coming/> }
-      {activeTab === 'live' && <Live/> }
 
       <Content />
+      {/* <CtaLink /> */}
+
 
     </div>
   );
